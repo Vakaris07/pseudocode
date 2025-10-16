@@ -1,0 +1,138 @@
+1.
+
+loop I from 0 to 4
+	MANAGERS[I] = fixName(I)
+end loop
+
+method fixName (name)
+NEWNAME = " "
+	loop J from 0 to name.Length()-1
+		if name[J] != “*“ OR name[J] != “-“ OR name[J] != “_“ OR name[J] != “+“ then
+			 NEWNAME += name[J]
+		end if
+	end loop
+return NEWNAME
+end method
+
+2.
+
+method calcSales(index)
+TOTAL = 0
+	loop I from 0 to 4
+		 TOTAL = TOTAL + QUARTERSALES[index][I]
+	end loop
+return TOTAL
+end method
+
+3.
+
+loop I from 0 to 4 
+	if calcSales(I) < calcTarget(I) then
+		output MANAGERS[I]
+	end if
+end loop
+
+method calcTarget(index)
+TOTAL = 0
+	loop J from 0 to 4
+		TOTAL = TOTAL + QUARTERTARGETS[index][J]
+	end loop
+RETURN TOTAL
+end method
+
+4.
+RECEIVE ARRAY
+TOTALSALES ARRAY
+COUNT = 0
+loop I from 0 to 4
+	if calcSales(I) > calcTarget(I) then
+		RECEIVE[COUNT] = MANAGERS[I]
+		TOTALSALES[COUNT] = calcSales(I)
+		COUNT++
+	end if
+end loop
+
+5.
+
+loop I from 0 to RECEIVE.Length()-1
+	loop J from 0 to RECEIVE.Length() - I - 1 
+		if TOTALSALES[J] < TOTAL[J+1] then
+			TEMP1= TOTALSALES[J]
+			TEMP2 = RECEIVE[J]
+			TOTALSALES[J] ‎ =  TOTALSALES[J+1]
+			RECEIVE[J] ‎ =  RECEIVE[J+1]
+			TEMP1= TOTAL[J+1]
+			TEMP2 = RECEIVE[J+1]
+		end if
+	end loop
+end loop
+
+loop K from 0 to RECEIVE.Length()-1
+	output RECEIVE[K]
+end loop
+
+6.
+COMPANYSALES=0
+COMPANYTARGET=0
+
+loop I from 0 to 4
+	COMPANYSALES = COMPANYSALES + calcSales(I)
+	COMPANYTARGET = COMPANYTARGET + calcTarget(I)
+end loop 
+SALEPERCENTAGE = (COMPANYSALES/COMPANYTARGET)*100
+output COMPANYSALES
+output COMPANYTARGET
+output SALEPERCENTAGE
+
+7.
+QUARTERS ARRAY(4)
+MAX = QUARTERS[0]
+loop I from 0 to 3 
+	QUARTERS[I] = calcQuarter(I)
+end  loop
+
+loop J from 0 to 3
+	if MAX < QUARTERS[J] then
+		MAX = QUARTERS[J]
+	end if
+end loop
+
+output MAX
+
+
+method calcQuarter(I)
+TOTAL = 0
+	loop J from 0 to 4
+		TOTAL=TOTAL+QUARTERSALES[J][I]
+	end loop
+return TOTAL
+end method
+
+8.
+MAX = QUARTERSALES[0][0]
+BEST = MANAGERS[0]
+loop I from 0 to 4 
+	loop J from 0 to 3
+		if MAX < QUARTERSALES[I][J] then
+		MAX = QUARTERSALES[I][J]
+		BEST = MANAGERS[I]
+		end if
+	end loop
+end loop
+
+output BEST
+output MAX
+
+9.
+AVERAGE = new Array(5)
+
+loop I from 0 to 4 
+AVERAGE[I] = calcSales(I)/4
+end loop
+
+loop J from 0 to 4
+output MANAGERS[J]
+output AVERAGE[J]
+end loop
+
+
