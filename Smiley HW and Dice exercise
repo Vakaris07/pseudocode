@@ -1,0 +1,106 @@
+HOMEWORK rotated smiley
+
+IMAGE = new Array(N)(N)
+ROTATED = new Array(N)(N)
+
+
+method rotate90()
+loop I from 0 to N-1
+	loop J from 0 to N-1
+		ROTATED[J][N-1-I] = IMAGE[I][J]
+	end loop
+end loop
+end method
+
+
+method rotate180()
+loop I from 0 to N-1
+	loop J from 0 to N-1
+		ROTATED[N-1-I][N-1-J]=IMAGE[I][J]
+	end loop
+end loop
+end method
+
+
+method rotate270()
+loop I from 0 to N-1
+	loop J from 0 to N-1
+		ROTATED[N-1-J][I]=IMAGE[I][J]
+	end loop
+end loop
+end method
+
+
+method flipHorizontal()
+loop I from 0 to N-1
+	loop J from 0 to N-1
+		ROTATED[N-1-I][J]=IMAGE[I][J]
+	end loop
+end loop
+end method
+
+method flipVertically()
+loop I from 0 to N-1
+	loop J from 0 to N-1
+		ROTATED[I][N-1-J]=IMAGE[I][J]
+	end loop
+end loop
+end method
+
+DICE EXERCISE
+
+a)
+
+method sum(DICEDIAL)
+SUM = 0
+loop I from 0 to 6 
+	loop J from 0 to 2
+		SUM =SUM + DICEDIAL[I][J]
+	end loop
+end loop
+return SUM
+end method
+
+b)
+
+method DuplicateNum(DICEDIAL, R)
+	DNUM = 0
+
+	loop I from 1 to 2
+		if DICEDIAL[R][I] =  DICEDIAL[R][I+1] then
+			DNUM = DICEDIAL[R][I]
+		end if
+	end loop
+
+return DNUM
+end method
+
+c)
+
+method highestRT(DICEDIAL)
+HIGHEST = rowSum(DICEDIAL, 0)
+ROWS = new Collection()
+
+	loop I from 1 to 6
+		if rowSum(DICEDIAL, I) > HIGHEST then
+			HIGHEST = rowSum(DICEDIAL, I)
+		end if	
+	end loop
+
+	loop I from 0 to 6
+		if rowSum(DICEDIAL, I) = HIGHEST then
+			ROWS.addItem(I)
+		end if
+	end loop
+
+return ROWS
+return HIGHEST
+end method
+
+method rowSum(DICEDIAL, R)
+SUM = 0
+	loop I from 0 to 2
+		SUM = SUM + DICEDIAL[R][I]
+	end loop
+return SUM
+end method
