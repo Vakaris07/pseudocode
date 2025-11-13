@@ -1,0 +1,115 @@
+
+17
+
+a)
+
+COUNT = 0
+TAGS[]
+loop I from 0 to 639	
+	if PLAYERS[I][4] = “Tokyo“ then
+		COUNT=COUNT + 1
+		TAGS[COUNT] = PLAYERS[I][2]
+	end if
+end loop
+
+b)
+
+loop while NOT MATCHQUEUE.isEmpty() 
+	P = MATCHQUEUE.dequeue()
+	FIRST = getFirst(P)
+	SECOND = getSecond(P)
+		loop I from 0 to 639 
+			if PLAYERS[I][2] = FIRST OR PLAYERS[I][2] = SECOND then
+				output “READY“
+			else
+				output “RESCHEDULE“
+			end if
+		end loop
+end loop
+
+method getFirst (NAME)
+FIRST = ""
+	I =0
+	loop while NAME[I]!= " " AND NAME[I+1]!= "v" AND NAME[I+2]!= "s"
+		FIRST = FIRST + NAME[I]
+		I = I + 1
+	end loop
+return FIRST 
+end method
+
+method getSecond (NAME)
+FIRST = getFirst(NAME)
+SECOND = ""
+	loop I from FIRST.Length()+3 to NAME.Length()-1
+		SECOND = SECOND + NAME[I]
+	end loop
+return SECOND
+end method
+
+d)
+
+method ValidatePlayers()
+COUNT=0
+	loop I from 0 to 639
+		EMAIL = PLAYERS[I][5]
+		if checkEmail(EMAIL) = FALSE then
+			INVALIDS.enqueue(PLAYERS[I][2])
+		end if
+	end loop
+	INVALIDS.resetNext()
+	loop while NOT INVALIDS.isEmpty()
+		N = INVALIDS.dequeue()
+		COUNT=COUNT + 1
+	end loop
+return COUNT
+end method
+
+method checkEmail(EMAIL)
+VALIDITY = TRUE
+COUNT =0
+	loop J from 0 to EMAIL.Length()-1
+		if EMAIL[J] ‎ = “@“ then
+			COUNT = COUNT +1
+			if EMAIL[J+1] = null AND EMAIL[J+2] ‎ = null then
+				VALIDITY = FALSE
+			end if
+		end if
+	end loop
+if COUNT>1 then
+  VALIDITY = FALSE
+end if
+return VALIDITY
+end method
+
+e)
+
+method ValidTag(TAG)
+VALIDITY = TRUE
+	loop I from 0 to TAG.Length()-1
+		if TAG[I] = " " then
+			removeLeadingSpace(TAG)
+		end if
+		if TAG[TAG.Length()-1-I] = " "  then
+			removeEndingSpace(TAG)
+		end if
+		if TAG[I] =
+	end loop
+
+if TAG.Length() < 3 OR TAG.Length() > 16 then
+VALIDITY = FALSE
+end if
+
+return VALIDITY
+end method
+
+method removeLeadingSpace(TAG)
+	loop I from 0 to TAG.Length()-2
+		TAG[I] = TAG[I+1]
+	end loop
+end method
+
+method removeEndingSpace(TAG)
+	loop I from TAG.Length()-1 to 0 
+		TAG[I-1] = TAG[I]
+	end loop
+end method
